@@ -1,20 +1,11 @@
 package ApiTest;
 
 import io.restassured.http.ContentType;
-
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import org.testng.Assert;
 import org.testng.annotations.*;
 import utilities.configurationReader;
-import static io.restassured.RestAssured.*;
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 import static org.testng.AssertJUnit.assertEquals;
@@ -39,7 +30,7 @@ public class ZipCodeHomework {
        assertEquals(response.contentType(),"application/json");
        assertEquals(response.header("server"), "cloudflare");
        assertTrue(response.header("Report-To").contains("endpoints"));
-      // Assert.assertTrue(response.body().asString().contains("post code is 22031"));
+
         String post_code = response.path("'post code'");
         String country = response.path("country");
         String countryAbb = response.path("'country abbreviation'");
@@ -54,6 +45,8 @@ public class ZipCodeHomework {
         assertEquals(placeState,"Virginia");
         assertEquals(placeLatitude,"38.8604");
 
+
+        //practice with Gpath Json
         JsonPath jsonPath = response.jsonPath();
 
         String post_codeJson = response.path("'post code'");
@@ -79,6 +72,7 @@ public class ZipCodeHomework {
         assertEquals(response.statusCode(),404);
         assertEquals(response.contentType(),"application/json");
     }
+
     @Test
     public void test3(){
         response = given().accept(ContentType.JSON)
